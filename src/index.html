@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title><%= htmlWebpackPlugin.options.title %></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <a-scene device-orientation-permission-ui="enabled: false">
+            <a-sky id="sky" src="#point1" rotation="0 -80 0"></a-sky>
+            <a-assets>
+                <img id="point1" src="images/1.jpg" alt="Imagen 1">
+                <img id="hotspot" src="images/info-icon.png" alt="hotspot">
+            </a-assets>
+            <a-entity id="spots" hotspots>
+                <a-entity id="group-point1">
+                    <a-image spot="linkto:#point2;spotgroup:group-point2" position="8.5 0.8 8.8"></a-image>
+                </a-entity>
+            </a-entity>
+            <a-entity id="cam" camera position="0 1.6 0" look-controls>
+                <a-entity 
+                    cursor="fuse: true; fuseTimeout:2000"
+                    geometry="primitive:ring;radiusInner:0.01;radiusOuter:0.02"
+                    position="0 0 -1.8"
+                    material="shader:flat;color:#ff0000:">
+                </a-entity>
+            </a-entity>
+        </a-scene>
+        <script src="./index.bundle.js"></script>
+    </body>
+</html>
