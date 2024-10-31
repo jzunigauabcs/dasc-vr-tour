@@ -19,6 +19,11 @@ module.exports = {
             },
             {
                 test: /\.(png|svg|jpg|jpeg|gif|webp)$/i,
+                use: [
+                    {
+                        loader: 'file-loader',
+                    }
+                ],
                 type: 'asset/resource',
                 generator: {
                     filename: "static/images/[name][ext]",
