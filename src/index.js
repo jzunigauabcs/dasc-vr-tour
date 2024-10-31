@@ -21,6 +21,9 @@ import './assets/images/IMG_15.JPG';
 import './assets/images/IMG_16.JPG';
 import './assets/images/IMG_17.JPG';
 import './assets/images/IMG_18.JPG';
+import './assets/images/dasc.png';
+import './assets/images/gatoSalvaje2024.png';
+import './assets/images/salir.png';
 
 const init = function() {
     const sky = document.querySelector('#sky');
@@ -28,6 +31,24 @@ const init = function() {
         sky.setAttribute('visible', true);
     })
 }
+
+AFRAME.registerComponent('visibilidad', {
+    init: function () {
+        const openImage = document.querySelector('#open');
+        const hsp1Image = document.querySelector('#hsp1-image');
+        const closeButton = hsp1Image.querySelector('#close');
+
+        openImage.addEventListener('mouseenter', () => {
+            openImage.setAttribute('visible', 'false');
+            hsp1Image.setAttribute('visible', 'true');
+        });
+
+        closeButton.addEventListener('mouseenter', () => {
+            openImage.setAttribute('visible', 'true');
+            hsp1Image.setAttribute('visible', 'false');
+        });
+    }
+});
 
 document.addEventListener('DOMContentLoaded', init);
 //window.addEventListener('load',);
