@@ -1,10 +1,9 @@
 name: Deploy to GitHub Pages
 
 on:
-  pull_request:
+  push:
     branches:
-      - main  # Cambia "main" al nombre de tu rama principal si es diferente
-  workflow_dispatch:
+      - main  # Se ejecuta en cada push a la rama main
 
 jobs:
   build:
@@ -17,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'  # Cambia la versión según necesites
+          node-version: '16'  # Ajusta la versión según tu proyecto
 
       - name: Install dependencies
         run: npm install
@@ -25,9 +24,20 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist  # Cambia "dist" si tu carpeta de salida es diferente
+      - name: Deploy to main branch
+        run: |
+          # Crea la carpeta docs si quieres usarla como subdirectorio
+          mkdir -p docs
+          # Copia el contenido de dist a docs (o usa dist directo)
+          cp -a dist/. docs/ 
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "Jesús Antonio Zúñiga Arce"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs  # Si usas /docs como subdirectorio; cambia a "." si es la raíz
+          git commit -m "Deploy to GitHub Pages"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
